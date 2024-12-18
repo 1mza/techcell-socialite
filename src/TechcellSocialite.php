@@ -6,43 +6,20 @@ use Laravel\Socialite\Facades\Socialite;
 
 class TechcellSocialite
 {
-    public static function loginUsingTwitter()
+    const array PROVIDERS = [
+        'google' => 'google',
+        'github' => 'github',
+        'twitter' => 'twitter-oauth-2',
+        'linkedin' => 'linkedIn',
+    ];
+
+    public static function loginUsingProvider($provider)
     {
-        return Socialite::driver('twitter-oauth-2')->redirect();
+        return Socialite::driver(static::PROVIDERS[$provider])->redirect();
     }
 
-    public static function callbackFromTwitter()
+    public static function callbackFromProvider($provider)
     {
-        return Socialite::driver('twitter-oauth-2')->user();
-    }
-
-    public static function loginUsingGithub()
-    {
-        return Socialite::driver('github')->redirect();
-    }
-
-    public static function callbackFromGithub()
-    {
-        return Socialite::driver('github')->user();
-    }
-
-    public static function loginUsingLinkedin()
-    {
-        return Socialite::driver('Linkedin')->redirect();
-    }
-
-    public static function callbackFromLinkedin()
-    {
-        return Socialite::driver('Linkedin')->user();
-    }
-
-    public static function loginUsingGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public static function callbackFromGoogle()
-    {
-        return Socialite::driver('google')->user();
+        return Socialite::driver(static::PROVIDERS[$provider])->user();
     }
 }
